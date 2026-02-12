@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #f6f8fc;
+  color: #333;
+  
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: linear-gradient(180deg, #4b6cb7, #182848);
+  color: #fff;
+  padding: 20px;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo h2 span {
+  color: #a5d8ff;
+}
+
+.menu {
+  list-style: none;
+}
+
+.menu li {
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.menu li:hover, .menu li.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 20px 40px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.search {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  width: 250px;
+  background: #e9eef7;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 16px;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.card.purple {
+  background: linear-gradient(135deg, #8e2de2, #4a00e0);
+}
+
+.card.blue {
+  background: linear-gradient(135deg, #2193b0, #6dd5ed);
+}
+
+.card.teal {
+  background: linear-gradient(135deg, #43cea2, #185a9d);
+}
+
+/* CHART */
+.chart-section {
+  margin-top: 40px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.chart-section h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* INVENTARIO */
+.inventory-table {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.inventory-table h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.inventory-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inventory-table th, .inventory-table td {
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.inventory-table th {
+  background: #f6f8fc;
+  font-weight: 600;
+}
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: #fff;
+}
+
+.tag.disponible { background: #43cea2; }
+.tag.bajo { background: #f4b400; }
+.tag.agotado { background: #d93025; }
+
+/* PEDIDOS */
+.orders-table {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.orders-table h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.orders-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table th, .orders-table td {
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.orders-table th {
+  background: #f6f8fc;
+  font-weight: 600;
+}
+
+.tag.entregado { background: #43cea2; }  /* Verde */
+.tag.proceso { background: #f4b400; }     /* Amarillo */
+.tag.cancelado { background: #d93025; }  /* Rojo */
+
+/* CLIENTES */
+.clients-table {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.clients-table h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.clients-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.clients-table th, .clients-table td {
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.clients-table th {
+  background: #f6f8fc;
+  font-weight: 600;
+}
+
+.tag.frecuente { background: #43cea2; } /* Verde */
+.tag.nuevo { background: #6dd5ed; }     /* Celeste */
+.tag.empresa { background: #8e2de2; }   /* Morado */
+
+.chart-container {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* ==== BOTÓN DE MENÚ ==== */
+#menu-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 24px;
+  color: white;
+  background: #a93d6e;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 2000;
+  transition: all 0.3s ease;
+}
+#menu-toggle:hover {
+  transform: scale(1.1);
+  background: #b84c7d;
+}
+
+/* ==== MENÚ LATERAL ==== */
+.menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 230px;
+  background: linear-gradient(180deg, #6c1d45, #a93d6e);
+  list-style: none;
+  padding: 70px 0 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.menu li {
+  display: block;
+  margin: 4px 0;
+}
+
+.menu li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 18px;
+  font-weight: 500;
+  border-radius: 8px;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.menu li.active a {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.menu li a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateX(5px);
+}
+
+/* Animación de íconos */
+.menu li a::before {
+  content: "🍓";
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.menu li a:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* === MODO CONTRAÍDO === */
+.menu.collapsed {
+  width: 80px;
+}
+
+.menu.collapsed li a {
+  justify-content: center;
+  font-size: 0;
+  gap: 0;
+}
+
+.menu.collapsed li a::before {
+  opacity: 1;
+  font-size: 20px;
+  transform: translateX(0);
+}
+
+/* === CONTENIDO PRINCIPAL === */
+.main-content {
+  margin-left: 240px;
+  padding: 30px;
+  transition: margin-left 0.3s ease;
+}
+
+.menu.collapsed ~ .main-content {
+  margin-left: 90px;
+}

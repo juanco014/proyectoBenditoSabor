@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bendito Sabor - Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <aside id="sidebar">
+    <h2>Bendito Sabor</h2>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="inventario.html">Inventario</a></li>
+      <li><a href="pedidos.html">Pedidos</a></li>
+      <li><a href="clientes.html">Clientes</a></li>
+      <li><a href="reportes.html">Reportes</a></li>
+    </ul>
+  </aside>
+
+  <main id="content">
+    <h1>Productos Disponibles</h1>
+    <div id="productos-lista" class="cards-container">Cargando productos...</div>
+  </main>
+
+  <script>
+  async function cargarProductos() {
+    try {
+      // ✅ 1. Verifica que el backend esté realmente en este puerto:
+      const respuesta = await fetch("http://127.0.0.1:8000/productos");
+
+      if (!respuesta.ok) {
+        throw new Error("Error HTTP " + respuesta.status);
+      }
+
+      const productos = await respuesta.json();
+      const contenedor = document.getElementById("productos-lista");
+      contenedor.innerHTML = "";
+
+      if (productos.length === 0) {
+        contenedor.innerHTML = "<p>No hay productos disponibles.</p>";
+        return;
+      }
+
+      // ✅ 2. Asegúrate de usar las claves correctas según tu base de datos.
+      productos.forEach(p => {
+        const item = document.createElement("div");
+        item.classList.add("producto-item");
+        item.innerHTML = `
+          <h3>${p.nombre}</h3>
+          <p>Precio: $${p.precio}</p>
+          <p>Stock: ${p.stock ?? p.cantidad ?? "N/A"}</p>
+        `;
+        contenedor.appendChild(item);
+      });
+    } catch (error) {
+      console.error("Error al cargar productos:", error);
+      document.getElementById("productos-lista").innerText = "Error al cargar productos.";
+    }
+  }
+
+  window.onload = cargarProductos;
+  </script>
+</body>
+</html>
