@@ -1,28 +1,52 @@
-// js/inventario.js
+// Cargar productos
 document.addEventListener("DOMContentLoaded", async () => {
-  const tbody = document.querySelector("tbody");
-  const loader = document.getElementById("loader");
+  const tbody = document.getElementById("tabla-productos");
 
   try {
-    loader.style.display = "flex";
-    const response = await fetch("http://127.0.0.1:8000/inventario");
-    if (!response.ok) throw new Error("Error al obtener inventario");
+    const response = await fetch("http://127.0.0.1:8000/productos");
+    const productos = await response.json();
 
-    const inventario = await response.json();
-    loader.style.display = "none";
-
-    tbody.innerHTML = inventario.map(item => `
+    tbody.innerHTML = productos.map(p => `
       <tr>
-        <td>${item.id || "-"}</td>
-        <td>${item.nombre}</td>
-        <td>${item.stock}</td>
-        <td>$${item.precio ? item.precio.toFixed(2) : "-"}</td>
-        <td><button class="btn-edit">Editar</button></td>
+        <td>${p.id || "-"}</td>
+        <td>${p.nombre}</td>
+        <td>$${p.precio}</td>
+        <td>${p.stock}</td>
+        <td><button>Editar</button></td>
       </tr>
     `).join("");
+
   } catch (error) {
     console.error(error);
-    tbody.innerHTML = "<tr><td colspan='5'>Error al cargar inventario.</td></tr>";
-    loader.style.display = "none";
+    tbody.innerHTML = "<tr><td colspan='5'>Error al cargar productos</td></tr>";
   }
 });
+
+
+// Mostrar formulario
+function mostrarFormulario() {
+  const form = document.getElementById("formulario");
+  form.classList.toggle("oculto");
+}
+
+
+// Crear producto (base)
+async function crearProducto() {
+  const nombre = document.getElementById("nombre").value;
+  const precio = document.getElementById("precio").value;
+  const stock = document.getElementById("stock").value;
+
+  try {
+    await fetch("http://127.0.0.1:8000/productos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ nombre, precio, stock })
+    });
+
+    location.reload(); // recargar tabla
+  } catch (error) {
+    console.error("Error al crear producto", error);
+  }
+}

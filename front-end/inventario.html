@@ -1,36 +1,52 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inventario - Bendito Sabor</title>
-  <link rel="stylesheet" href="css/style.css">
+    <title>Inventario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <aside id="sidebar" class="collapsed">
-    <button id="toggleMenu">☰</button>
-    <h2>Bendito Sabor</h2>
-    <ul>
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="inventario.html" class="active">Inventario</a></li>
-      <li><a href="pedidos.html">Pedidos</a></li>
-      <li><a href="clientes.html">Clientes</a></li>
-      <li><a href="reportes.html">Reportes</a></li>
-    </ul>
-  </aside>
 
-  <main id="content">
-    <h1>Inventario</h1>
-    <table class="styled-table">
-      <thead>
-        <tr><th>ID</th><th>Nombre</th><th>Cantidad</th><th>Precio</th><th>Acciones</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </main>
+    <!-- Sidebar -->
+    <div id="sidebar-container"></div>
 
-  <div id="loader" class="loader"></div>
-  <script src="js/menu.js"></script>
-  <script src="js/inventario.js"></script>
+    <!-- Main -->
+    <div class="main">
+
+        <!-- Header -->
+        <div class="header">
+            <h2>Gestión de Productos</h2>
+        </div>
+
+        <!-- Botón -->
+        <button onclick="mostrarFormulario()">+ Nuevo Producto</button>
+
+        <!-- Formulario -->
+        <div id="formulario" class="oculto" style="margin-top:20px;">
+            <input type="text" id="nombre" placeholder="Nombre del producto">
+            <input type="number" id="precio" placeholder="Precio">
+            <input type="number" id="stock" placeholder="Stock">
+            <button onclick="crearProducto()">Guardar</button>
+        </div>
+
+        <!-- Tabla -->
+        <table style="margin-top:20px;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-productos"></tbody>
+        </table>
+
+    </div>
+
+    <script src="js/menu.js"></script>
+    <script src="js/inventario.js"></script>
+
 </body>
 </html>

@@ -1,43 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reportes</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+    <!-- 🔘 BOTÓN -->
+    <button class="toggle-btn">☰</button>
+
+    <!-- Sidebar dinámico -->
     <div id="sidebar-container"></div>
 
+    <!-- Main -->
     <div class="main">
-
-        <div class="header">
-            <h2>Reportes</h2>
-        </div>
-
         <div class="cards">
-
             <div class="card">
-                <h3>Total Ventas</h3>
-                <p id="total-ventas">$0</p>
+                <h3>Ventas Totales</h3>
+                <p id="ventas">$0</p>
             </div>
-
             <div class="card">
-                <h3>Total Clientes</h3>
-                <p id="total-clientes">0</p>
+                <h3>Clientes</h3>
+                <p id="clientes">0</p>
             </div>
-
             <div class="card">
-                <h3>Total Productos</h3>
-                <p id="total-productos">0</p>
+                <h3>Productos</h3>
+                <p id="productos">0</p>
             </div>
-
+            <div class="card">
+                <h3>Pedidos</h3>
+                <p id="pedidos">0</p>
+            </div>
         </div>
-
     </div>
 
     <script src="js/menu.js"></script>
-    <script src="js/reportes.js"></script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-// js/clientes.js
+// Cargar clientes
 document.addEventListener("DOMContentLoaded", async () => {
   const tbody = document.querySelector("tbody");
   const loader = document.getElementById("loader");
@@ -26,3 +26,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     loader.style.display = "none";
   }
 });
+
+
+function mostrarFormulario() {
+  const form = document.getElementById("formulario");
+  form.style.display = form.style.display === "none" ? "block" : "none";
+}
