@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session
 from database import SessionLocal, engine, get_db
 from sqlalchemy import text
 from database import engine
@@ -42,10 +42,15 @@ def get_productos(db: Session = Depends(get_db)):
 @app.get("/detalle_pedidos")
 def get_detalles(db: Session = Depends(get_db)):
     return db.query(models.DetallePedido).all()
-
+ 
 @app.get("/clientes")
-def get_clientes(db: Session = Depends(get_db)):
-    return db.query(models.Cliente).all()
+def obtener_clientes(db: Session = Depends(get_db)):
+    result = db.execute(text("SELECT * FROM clientes"))
+    
+    # 👇 convertir a JSON correctamente
+    clientes = [dict(row._mapping) for row in result]
+
+    return clientes
 
 @app.get("/inventario")
 def get_inventario(db: Session = Depends(get_db)):
@@ -66,15 +71,16 @@ def get_pedidos(db: Session = Depends(get_db)):
         for p in pedidos
     ]
 
-
 # ✅ Incluir el router de reportes
 app.include_router(reportes_router)
 
 @app.get("/test-db")
-def test_db():
-    try:
-        with engine.connect() as connection:
-            result = connection.execute(text("SELECT NOW();"))
-            return {"status": "Conectado ✅", "hora_servidor": str(result.scalar())}
-    except Exception as e:
-        return {"status": "Error ❌", "detalle": str(e)}
+def test_db(db: Session = Depends(get_db)):
+    result = db.execute(text("SELECT 1"))
+    
+    data = [row[0] for row in result]
+
+    return {
+        "message": "Conexión exitosa",
+        "result": data
+    }
