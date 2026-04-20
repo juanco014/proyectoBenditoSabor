@@ -1,10 +1,16 @@
-// Cargar productos
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", cargarProductos);
+
+async function cargarProductos() {
   const tbody = document.getElementById("tabla-productos");
 
   try {
     const response = await fetch("http://127.0.0.1:8000/productos");
     const productos = await response.json();
+
+    if (productos.length === 0) {
+      tbody.innerHTML = "<tr><td colspan='5'>No hay productos</td></tr>";
+      return;
+    }
 
     tbody.innerHTML = productos.map(p => `
       <tr>
@@ -12,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <td>${p.nombre}</td>
         <td>$${p.precio}</td>
         <td>${p.stock}</td>
-        <td><button>Editar</button></td>
+        <td><button onclick="editarProducto(${p.id})">Editar</button></td>
       </tr>
     `).join("");
 
@@ -20,21 +26,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error(error);
     tbody.innerHTML = "<tr><td colspan='5'>Error al cargar productos</td></tr>";
   }
-});
-
-
-// Mostrar formulario
-function mostrarFormulario() {
-  const form = document.getElementById("formulario");
-  form.classList.toggle("oculto");
 }
 
-
-// Crear producto (base)
 async function crearProducto() {
   const nombre = document.getElementById("nombre").value;
-  const precio = document.getElementById("precio").value;
-  const stock = document.getElementById("stock").value;
+  const precio = parseFloat(document.getElementById("precio").value);
+  const stock = parseInt(document.getElementById("stock").value);
+
+  if (!nombre || isNaN(precio) || isNaN(stock)) {
+    alert("Por favor completa todos los campos correctamente");
+    return;
+  }
 
   try {
     await fetch("http://127.0.0.1:8000/productos", {
@@ -45,7 +47,7 @@ async function crearProducto() {
       body: JSON.stringify({ nombre, precio, stock })
     });
 
-    location.reload(); // recargar tabla
+    cargarProductos(); // 🔥 mejor que reload
   } catch (error) {
     console.error("Error al crear producto", error);
   }
